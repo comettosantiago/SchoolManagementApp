@@ -30,6 +30,14 @@ public class Cursada {
 
     }
 
+    public Cursada(int idCursada, Alumno alumno, Materia materia, float nota, boolean activo) {
+        this.alumno = alumno;
+        this.materia = materia;
+        this.nota = nota;
+        this.activo = activo;
+        this.idCursada = idCursada;
+    }
+
     //methods
     public int getIdCursada() {
         return idCursada;
@@ -65,6 +73,10 @@ public class Cursada {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public void setIdCursada(int idCursada) {
+        this.idCursada = idCursada;
     }
 
 }

@@ -28,6 +28,13 @@ public class Materia {
 
     }
 
+    public Materia(int idMateria, String nombreMateria, int anio, boolean activo) {
+        this.nombreMateria = nombreMateria;
+        this.anio = anio;
+        this.activo = activo;
+        this.idMateria = idMateria;
+    }
+
     //methods
     public int getIdMateria() {
         return idMateria;
@@ -55,6 +62,10 @@ public class Materia {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public void setIdMateria(int idMateria) {
+        this.idMateria = idMateria;
     }
 
 }

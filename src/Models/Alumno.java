@@ -34,6 +34,15 @@ public class Alumno {
 
     }
 
+    public Alumno(int idAlumno, int legajo, String nombre, String apellido, LocalDate fechaNacimiento, boolean activo) {
+        this.legajo = legajo;
+        this.nombreAlumno = nombre;
+        this.apellidoAlumno = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.activo = activo;
+        this.idAlumno = idAlumno;
+    }
+
     //methods
     public int getIdAlumno() {
         return idAlumno;
@@ -81,11 +90,11 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "ID=" + idAlumno + ", legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno; //reveer si poner activo
+        return "ID=" + idAlumno + ", legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno; //poner activo
     }
 
-    void setId(int id) {
-        this.idAlumno=id; //reveer 
+    public void setId(int id) {
+        this.idAlumno = id;
     }
 
 }
