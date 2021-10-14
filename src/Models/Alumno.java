@@ -84,4 +84,8 @@ public class Alumno {
         return "ID=" + idAlumno + ", legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno; //reveer si poner activo
     }
 
+    void setId(int id) {
+        this.idAlumno=id; //reveer 
+    }
+
 }
