@@ -5,10 +5,19 @@
  */
 package Controls;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Santiago Cometto
  */
 public class CursadaData {
+        //Atributes
+    private Connection con = null;
+        //Constructor
+    public CursadaData(Conexion conexionCursada) {
+        this.con = conexionCursada.conectar();
+    }
+        //methods
     
 }
