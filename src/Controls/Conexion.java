@@ -30,7 +30,7 @@ public class Conexion {
 
             System.out.println("Conexion establecida correctamente");
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de conexionnnn");
+            JOptionPane.showMessageDialog(null, "Error de conexion");
         }
         return con;
     }
