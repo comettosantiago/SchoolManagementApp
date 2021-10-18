@@ -81,7 +81,7 @@ public class Principal {
             System.out.println(a.getLegajo());
         }
         
-        cd.actualizarNota(6, 3, 10);
+        cd.actualizarNota(1, 1, 10);
 
     }
 }

@@ -79,14 +79,14 @@ public class CursadaData {
             ps.setInt(2, idAlumno);
 
             if (ps.executeUpdate() > 0) {
-                JOptionPane.showMessageDialog(null, "Se desinscribio al alumno de la materia exitosamente");
+                JOptionPane.showMessageDialog(null, "Se desinscribio al Alumno de la Materia exitosamente");
             } else {
-                JOptionPane.showMessageDialog(null, "No se pudo desinscribir al alumno");
+                JOptionPane.showMessageDialog(null, "No se pudo desinscribir al Alumno");
             }
 
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR en Base de Datos");
+            JOptionPane.showMessageDialog(null, "ERROR en Base de Datos"+ex);
         }
     }
 
@@ -115,7 +115,7 @@ public class CursadaData {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(CursadaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones"+ex);
         }
         return listaCursadas;
     }
@@ -148,7 +148,7 @@ public class CursadaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Materias Cursadas" + ex);
         }
         return listaMaterias;
     }
@@ -183,7 +183,7 @@ public class CursadaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Materias no Cursadas"+ex);
         }
         return listaMaterias;
     }
@@ -194,7 +194,7 @@ public class CursadaData {
         try {
 
             String query = "SELECT cursada.idAlumno FROM cursada WHERE cursada.activo = true AND cursada.idMateria = ?";
-
+            
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, idMateria);
@@ -212,7 +212,7 @@ public class CursadaData {
             ps.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(CursadaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Alumnos"+ex);
         }
 
         return listaAlumnos;
@@ -229,14 +229,15 @@ public class CursadaData {
             ps.setInt(3, idMateria);
             ps.setFloat(1, nota);
 
-            ps.executeQuery();
-
+             if (ps.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Nota actualizada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se puede actualizar la Nota");
+            }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CursadaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al actualizar la Nota"+ex);
         }
-
     }
-
     //--------------------------------------------
 }
