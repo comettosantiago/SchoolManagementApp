@@ -5,15 +5,10 @@
  */
 package Views;
 
-import Controls.AlumnoData;
 import Controls.Conexion;
 import Controls.CursadaData;
-import Controls.MateriaData;
 import Models.Alumno;
-import Models.Cursada;
 import Models.Materia;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 /**
