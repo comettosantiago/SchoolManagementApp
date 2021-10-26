@@ -5,17 +5,28 @@
  */
 package Views.VistaMaterias;
 
+import Controls.Conexion;
+import Controls.MateriaData;
+import Models.Materia;
+
 /**
  *
  * @author Isaias
  */
 public class agregarMateria extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form agregarMateria
-     */
+    Conexion con = new Conexion();
+
+    MateriaData md = new MateriaData(con);
+
     public agregarMateria() {
         initComponents();
+
+    }
+
+    public void limpiarCampos() {
+        jTextNombre.setText("");
+        jTextAnio.setText("");
     }
 
     /**
@@ -60,9 +71,19 @@ public class agregarMateria extends javax.swing.JInternalFrame {
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-añadir-libro-48.png"))); // NOI18N
         jButtonGuardar.setToolTipText("Guardar.");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,12 +115,8 @@ public class agregarMateria extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(26, 26, 26))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -107,8 +124,10 @@ public class agregarMateria extends javax.swing.JInternalFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addContainerGap(109, Short.MAX_VALUE))))
+                            .addComponent(jLabel3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -117,6 +136,23 @@ public class agregarMateria extends javax.swing.JInternalFrame {
     private void jTextAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAnioFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextAnioFocusLost
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        String nombre = jTextNombre.getText();
+        int anio = Integer.parseInt(jTextAnio.getText());
+        
+        Materia m = new Materia(nombre, anio, true);
+        
+        md.guardarMateria(m);
+        
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

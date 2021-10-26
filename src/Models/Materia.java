@@ -68,4 +68,9 @@ public class Materia {
         this.idMateria = idMateria;
     }
 
+    @Override
+    public String toString() {
+        return nombreMateria + ", " + anio + " Año";
+    }
+
 }

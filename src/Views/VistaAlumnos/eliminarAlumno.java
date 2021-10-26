@@ -24,11 +24,15 @@ public class eliminarAlumno extends javax.swing.JInternalFrame {
     public eliminarAlumno() {
         initComponents();
         llenarComboAlumno();
+        limpiarCampos();
+    }
+    
+    public void limpiarCampos(){
         jTextNombre.setText("");
         jTextApellido.setText("");
         jDateFechaNac.setText("");
         jTextLegajo.setText("");
-
+        jComboAlumno.setSelectedIndex(-1);
     }
 
     public void llenarComboAlumno() {
@@ -227,6 +231,8 @@ public class eliminarAlumno extends javax.swing.JInternalFrame {
         Alumno a = (Alumno) jComboAlumno.getSelectedItem();
 
         ad.borrarAlumno(a.getIdAlumno());
+        
+        limpiarCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

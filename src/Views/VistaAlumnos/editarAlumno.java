@@ -27,11 +27,17 @@ public class editarAlumno extends javax.swing.JInternalFrame {
     public editarAlumno() {
         initComponents();
         llenarComboAlumno();
+        limpiarCampos();
+    }
+    
+    public void limpiarCampos(){
+        jComboAlumno.setSelectedIndex(-1);
         jTextNombre.setText("");
         jTextApellido.setText("");
         jDateFechaNac.setDate(null);
         jTextLegajo.setText("");
-
+        jRadioNo.setSelected(false);
+        jRadioSi.setSelected(false);
     }
 
     public void llenarComboAlumno() {
@@ -225,7 +231,7 @@ public class editarAlumno extends javax.swing.JInternalFrame {
                     .addComponent(jRadioSi)
                     .addComponent(jRadioNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonSalir)
                     .addComponent(jButtonActualizar))
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -279,6 +285,9 @@ public class editarAlumno extends javax.swing.JInternalFrame {
         }
 
         ad.actualizarAlumno(a);
+        
+        limpiarCampos();
+                
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed

@@ -7,7 +7,6 @@ package Views;
 
 import Controls.AlumnoData;
 import Controls.Conexion;
-import Models.Alumno;
 import Views.VistaAlumnos.editarAlumno;
 import Views.VistaAlumnos.eliminarAlumno;
 import Views.VistaAlumnos.vistaAgregarAlumno;

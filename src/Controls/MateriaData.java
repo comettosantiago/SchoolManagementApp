@@ -104,6 +104,30 @@ public class MateriaData {
         }
         return listaMaterias;
     }
+    
+    public List<Materia> listarTodasLasMaterias() {
+        ArrayList<Materia> listaMaterias = new ArrayList<>();
+        String query = "SELECT * FROM materia";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Materia m = new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombreMateria(rs.getString("nombreMateria"));
+                m.setAnio(rs.getInt("anio"));
+                m.setActivo(rs.getBoolean("activo"));
+
+                listaMaterias.add(m);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener materia");
+        }
+        return listaMaterias;
+    }
 
     public void actualizarMateria(Materia m) {
         String query = "UPDATE materia SET nombreMateria = ?, anio = ?, activo = ? WHERE idMateria = ?";

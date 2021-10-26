@@ -5,17 +5,56 @@
  */
 package Views.VistaInscripciones;
 
+import Controls.AlumnoData;
+import Controls.Conexion;
+import Controls.CursadaData;
+import Controls.MateriaData;
+import Models.Alumno;
+import Models.Cursada;
+import Models.Materia;
+import java.util.ArrayList;
+
 /**
  *
  * @author Isaias
  */
 public class inscripciones extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form inscripciones
-     */
+    Conexion con = new Conexion();
+
+    MateriaData md = new MateriaData(con);
+
+    AlumnoData ad = new AlumnoData(con);
+
+    CursadaData cd = new CursadaData(con);
+
     public inscripciones() {
         initComponents();
+        llenarComboAlumno();
+        llenarComboMateria();
+    }
+
+    public void limpiarCampos() {
+        jComboAlumno.setSelectedIndex(-1);
+        jComboMateria.setSelectedIndex(-1);
+    }
+
+    public void llenarComboAlumno() {
+        ArrayList<Alumno> listaAlumnos = (ArrayList<Alumno>) ad.listarAlumnos();
+
+        for (Alumno a : listaAlumnos) {
+            jComboAlumno.addItem(a);
+        }
+        jComboAlumno.setSelectedIndex(-1);
+    }
+
+    public void llenarComboMateria() {
+        ArrayList<Materia> listaMaterias = (ArrayList<Materia>) md.listarMaterias();
+
+        for (Materia m : listaMaterias) {
+            jComboMateria.addItem(m);
+        }
+        jComboMateria.setSelectedIndex(-1);
     }
 
     /**
@@ -46,6 +85,11 @@ public class inscripciones extends javax.swing.JInternalFrame {
         jLabel1.setText("Formulario de Inscripción");
 
         jComboAlumno.setToolTipText("Seleccionar Alumno.");
+        jComboAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboAlumnoActionPerformed(evt);
+            }
+        });
 
         jComboMateria.setToolTipText("Seleccionar Materia.");
 
@@ -57,12 +101,27 @@ public class inscripciones extends javax.swing.JInternalFrame {
 
         jButtonInscribir.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonInscribir.setText("Inscribir");
+        jButtonInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInscribirActionPerformed(evt);
+            }
+        });
 
         jButtonDesinscribir.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonDesinscribir.setText("Desinscribir");
+        jButtonDesinscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDesinscribirActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,13 +179,67 @@ public class inscripciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboAlumnoActionPerformed
+
+    
+    //--------------------------REVISAR ESTE BOTON------------------------------
+    private void jButtonInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscribirActionPerformed
+        // TODO add your handling code here:
+        
+        //este boton crea inscripciones entre un alumno y una materia 
+        
+        //la idea es que a una inscripcion no creada la cree, y a una que este creada pero inactiva, la setee a activa
+        
+        Cursada c = new Cursada();
+
+        Alumno a = (Alumno) jComboAlumno.getSelectedItem();
+
+        Materia m = (Materia) jComboMateria.getSelectedItem();
+        
+        if (true) {
+            //aca deberia actualizar una inscripcion ya creada de inactiva a activa
+
+        } else {
+            c.setAlumno(a);
+            c.setMateria(m);      //y aca, en caso de no existir esa inscripcion, crearla y agregarla a la cursadaData
+            c.setActivo(true);
+
+            cd.guardarInscripcion(c);
+        }
+
+        jComboAlumno.setSelectedIndex(-1);
+        jComboMateria.setSelectedIndex(-1);
+
+    }//GEN-LAST:event_jButtonInscribirActionPerformed
+
+    private void jButtonDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesinscribirActionPerformed
+        // TODO add your handling code here:
+        Cursada c = new Cursada();
+
+        Alumno a = (Alumno) jComboAlumno.getSelectedItem();
+
+        Materia m = (Materia) jComboMateria.getSelectedItem();
+
+        cd.borrarInscripcion(m.getIdMateria(), a.getIdAlumno());
+
+        jComboAlumno.setSelectedIndex(-1);
+        jComboMateria.setSelectedIndex(-1);
+    }//GEN-LAST:event_jButtonDesinscribirActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDesinscribir;
     private javax.swing.JButton jButtonInscribir;
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JComboBox<String> jComboAlumno;
-    private javax.swing.JComboBox<String> jComboMateria;
+    private javax.swing.JComboBox<Alumno> jComboAlumno;
+    private javax.swing.JComboBox<Materia> jComboMateria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
