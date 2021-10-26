@@ -36,8 +36,8 @@ public class editarAlumno extends javax.swing.JInternalFrame {
         jTextApellido.setText("");
         jDateFechaNac.setDate(null);
         jTextLegajo.setText("");
-        jRadioNo.setSelected(false);
-        jRadioSi.setSelected(false);
+        buttonGroup1.clearSelection();
+        
     }
 
     public void llenarComboAlumno() {

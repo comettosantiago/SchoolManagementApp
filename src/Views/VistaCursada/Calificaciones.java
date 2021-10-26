@@ -5,18 +5,84 @@
  */
 package Views.VistaCursada;
 
+import Controls.AlumnoData;
+import Controls.Conexion;
+import Controls.CursadaData;
+import Controls.MateriaData;
+import Models.Alumno;
+import Models.Cursada;
+import Models.Materia;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
+
 /**
  *
  * @author Isaias
  */
 public class Calificaciones extends javax.swing.JInternalFrame {
-
+    
+  
     /**
      * Creates new form calificaiones
      */
+    private DefaultTableModel modelo;// permite crear un objeto en el cual puedo guardar el modelo de la tabla , Q columnas va a tener y que filas visualiza)
+    private ArrayList<Cursada> listaCursada;
+    private ArrayList<Materia> listaMateria;
+    private ArrayList<Alumno> listaAlumno;
+    
     public Calificaciones() {
         initComponents();
+        Conexion con = new Conexion();
+        AlumnoData ad = new AlumnoData(con);
+        MateriaData md = new MateriaData(con);
+        CursadaData cd = new CursadaData(con);        
+        modelo =new DefaultTableModel();
+        listaCursada = (ArrayList)cd.obtenerInscripciones();
+        listaMateria = (ArrayList) md.listarTodasLasMaterias();
+        listaAlumno =(ArrayList)ad.listarTodosLosAlumnos();
+        cargarAlumnos();
+        cabezeraDeTabla();
+        cargarDatosEnLaTabla();
     }
+    
+     public void cargarAlumnos(){
+        for(Alumno a: listaAlumno){
+            jComboAlumno.addItem(a);
+        }
+    }
+     
+    public void cabezeraDeTabla(){
+        ArrayList<Object> columna = new ArrayList<Object>();
+        columna.add("ID");
+        columna.add("Nombre");
+        columna.add("Apellido");
+        columna.add("Materia");
+        columna.add("Año");
+        columna.add("Nota");
+        for (Object it:columna){
+            modelo.addColumn(it);
+        }
+        jTableCalificaciones.setModel(modelo);
+                
+    }
+     public void borrarFilasTabla(){
+         int a= modelo.getRowCount()-1;
+         for(int i=a;i>=0;i--){
+             modelo.removeRow(i);
+         }
+     }
+      public void cargarDatosEnLaTabla(){
+         borrarFilasTabla();
+         
+         Alumno alumno =(Alumno) jComboAlumno.getSelectedItem();
+         for (Cursada m:listaCursada){
+             if(m.getAlumno().getIdAlumno()==alumno.getIdAlumno()){
+                 modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(),m.getAlumno().getNombre(),m.getAlumno().getApellido(),m.getMateria().getNombreMateria(),m.getMateria().getAnio(),m.getNota()});
+             }
+         }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +96,7 @@ public class Calificaciones extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCalificaciones = new javax.swing.JTable();
         jComboAlumno = new javax.swing.JComboBox<>();
         jButtonGuardar = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
@@ -47,7 +113,7 @@ public class Calificaciones extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Alumno:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCalificaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,12 +124,22 @@ public class Calificaciones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCalificaciones);
 
         jComboAlumno.setToolTipText("Seleccionar Alumno.");
+        jComboAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboAlumnoActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonSalir.setText("Salir");
@@ -122,15 +198,25 @@ public class Calificaciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboAlumnoActionPerformed
+        // TODO add your handling code here:
+        cargarDatosEnLaTabla();
+    }//GEN-LAST:event_jComboAlumnoActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JComboBox<String> jComboAlumno;
+    private javax.swing.JComboBox<Alumno> jComboAlumno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCalificaciones;
     // End of variables declaration//GEN-END:variables
 }

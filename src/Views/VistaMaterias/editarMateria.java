@@ -31,8 +31,7 @@ public class editarMateria extends javax.swing.JInternalFrame {
         jComboMateria.setSelectedIndex(-1);
         jTextNombre.setText("");
         jTextAnio.setText("");
-        jRadioNo.setSelected(false);
-        jRadioSi.setSelected(false);
+        buttonGroup1.clearSelection();
     }
     
     public void llenarComboMateria() {

@@ -26,7 +26,7 @@ public class vistaAgregarAlumno extends javax.swing.JInternalFrame {
     public void limpiarCampos(){
         jTextNombre.setText("");
         jTextApellido.setText("");
-        jDateFechaNac.setDateFormatString("");
+        jDateFechaNac.setDate(null);
         jTextLegajo.setText("");
     }
     

@@ -90,7 +90,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno;
+        return  legajo + " - " + apellidoAlumno + ", " + nombreAlumno;
     }
 
     public void setId(int id) {
