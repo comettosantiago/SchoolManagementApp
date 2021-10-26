@@ -90,7 +90,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "ID=" + idAlumno + ", legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno; //poner activo
+        return "Legajo=" + legajo + ", " + apellidoAlumno + ", " + nombreAlumno;
     }
 
     public void setId(int id) {

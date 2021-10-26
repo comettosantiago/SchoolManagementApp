@@ -111,6 +111,33 @@ public class AlumnoData {
         }
         return listaAlumnos;
     }
+    
+    public List<Alumno> listarTodosLosAlumnos() {
+        ArrayList<Alumno> listaAlumnos = new ArrayList<>();
+
+        String query = "SELECT * FROM alumno";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Alumno a = new Alumno();
+                a.setId(rs.getInt("idAlumno"));
+                a.setApellido(rs.getString(2));
+                a.setNombre(rs.getString("nombre"));
+                a.setFechaNacimiento(rs.getDate("fechaNac").toLocalDate());
+                a.setLegajo(rs.getInt(5));
+                a.setActivo(rs.getBoolean("activo"));
+
+                listaAlumnos.add(a);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener alumno");
+        }
+        return listaAlumnos;
+    }
 
     public void actualizarAlumno(Alumno a) {
         String query = "UPDATE alumno SET apellido = ?, nombre = ?, fechaNac = ?, legajo = ?, activo = ? WHERE idAlumno = ?";
