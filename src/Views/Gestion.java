@@ -11,6 +11,14 @@ import Models.Alumno;
 import Views.VistaAlumnos.editarAlumno;
 import Views.VistaAlumnos.eliminarAlumno;
 import Views.VistaAlumnos.vistaAgregarAlumno;
+import Views.VistaCursada.Calificaciones;
+import Views.VistaCursada.alumnosPorMateria;
+import Views.VistaCursada.materiaPorAlumnos;
+import Views.VistaInscripciones.inscripciones;
+import Views.VistaMaterias.agregarMateria;
+import Views.VistaMaterias.editarMateria;
+import Views.VistaMaterias.eliminarMateria;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -24,6 +32,18 @@ public class Gestion extends javax.swing.JFrame {
 
     public Gestion() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    public void centrarVentanaInterna(JInternalFrame internalFrame){
+        int x= (panelPrincipal.getWidth()/2)- internalFrame.getWidth()/2;
+        int y= (panelPrincipal.getHeight()/2)- internalFrame.getHeight()/2;
+        if(internalFrame.isShowing()){
+            internalFrame.setLocation(x, y);
+        }else {
+            panelPrincipal.add(internalFrame);
+            internalFrame.setLocation(x, y);
+            internalFrame.show();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -49,19 +69,19 @@ public class Gestion extends javax.swing.JFrame {
         panelPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmiAgregarAlumno = new javax.swing.JMenuItem();
+        jmiEditarAlumno = new javax.swing.JMenuItem();
+        jmiEliminarAlumno = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jmiAgregarMateria = new javax.swing.JMenuItem();
+        jmiEditarMateria = new javax.swing.JMenuItem();
+        jmiEliminarMateria = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        jmiAlumnosXMateria = new javax.swing.JMenuItem();
+        jmiMateriaXAlumno = new javax.swing.JMenuItem();
+        jmiCalificaciones = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jmiInscripciones = new javax.swing.JMenuItem();
 
         jRadioButtonMenuItem7.setSelected(true);
         jRadioButtonMenuItem7.setText("jRadioButtonMenuItem7");
@@ -103,71 +123,106 @@ public class Gestion extends javax.swing.JFrame {
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGap(0, 919, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 637, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Alumnos");
 
-        jMenuItem3.setText("Agregar alumno");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiAgregarAlumno.setText("Agregar Alumno");
+        jmiAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiAgregarAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(jmiAgregarAlumno);
 
-        jMenuItem4.setText("Editar alumno");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiEditarAlumno.setText("Editar Alumno");
+        jmiEditarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiEditarAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(jmiEditarAlumno);
 
-        jMenuItem5.setText("Eliminar alumno");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jmiEliminarAlumno.setText("Eliminar Alumno");
+        jmiEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jmiEliminarAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(jmiEliminarAlumno);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Materias");
 
-        jMenuItem6.setText("Agregar materia");
-        jMenu2.add(jMenuItem6);
+        jmiAgregarMateria.setText("Agregar Materia");
+        jmiAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAgregarMateriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiAgregarMateria);
 
-        jMenuItem7.setText("Editar materia");
-        jMenu2.add(jMenuItem7);
+        jmiEditarMateria.setText("Editar Materia");
+        jmiEditarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEditarMateriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiEditarMateria);
 
-        jMenuItem8.setText("Eliminar materia");
-        jMenu2.add(jMenuItem8);
+        jmiEliminarMateria.setText("Eliminar Materia");
+        jmiEliminarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiEliminarMateriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiEliminarMateria);
 
         jMenuBar1.add(jMenu2);
 
         jMenu8.setText("Cursada");
 
-        jMenuItem9.setText("Ver alumnos de una materia");
-        jMenu8.add(jMenuItem9);
+        jmiAlumnosXMateria.setText("Ver alumnos de una materia");
+        jmiAlumnosXMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAlumnosXMateriaActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jmiAlumnosXMateria);
 
-        jMenuItem10.setText("Ver materias de un alumno");
-        jMenu8.add(jMenuItem10);
+        jmiMateriaXAlumno.setText("Ver materias de un alumno");
+        jmiMateriaXAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMateriaXAlumnoActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jmiMateriaXAlumno);
 
-        jMenuItem13.setText("Calificaciones");
-        jMenu8.add(jMenuItem13);
+        jmiCalificaciones.setText("Calificaciones");
+        jmiCalificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCalificacionesActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jmiCalificaciones);
 
         jMenuBar1.add(jMenu8);
 
         jMenu9.setText("Inscripciones");
 
-        jMenuItem11.setText("Inscripciones");
-        jMenu9.add(jMenuItem11);
+        jmiInscripciones.setText("Inscripciones");
+        jmiInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInscripcionesActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jmiInscripciones);
 
         jMenuBar1.add(jMenu9);
 
@@ -177,7 +232,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(panelPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,32 +242,98 @@ public class Gestion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarAlumnoActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
         panelPrincipal.repaint();
         vistaAgregarAlumno vent = new vistaAgregarAlumno();
         vent.setVisible(true);
         panelPrincipal.add(vent);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiAgregarAlumnoActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiEditarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarAlumnoActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
         panelPrincipal.repaint();
         editarAlumno vent = new editarAlumno();
         vent.setVisible(true);
         panelPrincipal.add(vent);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiEditarAlumnoActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jmiEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarAlumnoActionPerformed
         // TODO add your handling code here:
         panelPrincipal.removeAll();
         panelPrincipal.repaint();
         eliminarAlumno vent = new eliminarAlumno();
         vent.setVisible(true);
         panelPrincipal.add(vent);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiEliminarAlumnoActionPerformed
+
+    private void jmiMateriaXAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMateriaXAlumnoActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        materiaPorAlumnos vent = new materiaPorAlumnos();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiMateriaXAlumnoActionPerformed
+
+    private void jmiEliminarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEliminarMateriaActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        eliminarMateria vent = new eliminarMateria();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiEliminarMateriaActionPerformed
+
+    private void jmiAgregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarMateriaActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        agregarMateria vent = new agregarMateria();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiAgregarMateriaActionPerformed
+
+    private void jmiEditarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEditarMateriaActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        editarMateria vent = new editarMateria();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiEditarMateriaActionPerformed
+
+    private void jmiAlumnosXMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlumnosXMateriaActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        alumnosPorMateria vent = new alumnosPorMateria();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiAlumnosXMateriaActionPerformed
+
+    private void jmiCalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCalificacionesActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        Calificaciones vent = new Calificaciones();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiCalificacionesActionPerformed
+
+    private void jmiInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInscripcionesActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        inscripciones vent = new inscripciones();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jmiInscripcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,24 +384,24 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem7;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem8;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenuItem jmiAgregarAlumno;
+    private javax.swing.JMenuItem jmiAgregarMateria;
+    private javax.swing.JMenuItem jmiAlumnosXMateria;
+    private javax.swing.JMenuItem jmiCalificaciones;
+    private javax.swing.JMenuItem jmiEditarAlumno;
+    private javax.swing.JMenuItem jmiEditarMateria;
+    private javax.swing.JMenuItem jmiEliminarAlumno;
+    private javax.swing.JMenuItem jmiEliminarMateria;
+    private javax.swing.JMenuItem jmiInscripciones;
+    private javax.swing.JMenuItem jmiMateriaXAlumno;
     private javax.swing.JDesktopPane panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

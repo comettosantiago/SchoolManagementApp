@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     //attributes 
-    private String url = "jdbc:mariadb://localhost/universidad"; //consultar url
+    private String url = "jdbc:mariadb://localhost/universidadg2"; //consultar url
     private Connection con = null;
 
     //methods
