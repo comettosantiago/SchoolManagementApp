@@ -66,7 +66,7 @@ public class Principal {
         
         System.out.println(ad.listarTodosLosAlumnos());
         
-        cd.actualizarNota(1, 4, (float) 3.5);
+        cd.actualizarNota(1, 4, (float) 3.6);
         
         
         
