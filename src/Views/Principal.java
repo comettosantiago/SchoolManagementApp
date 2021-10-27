@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Controls.AlumnoData;
 import Controls.Conexion;
 import Controls.CursadaData;
 import Models.Alumno;
@@ -20,7 +21,7 @@ public class Principal {
     public static void main(String pepe[]) {
         Conexion conexion = new Conexion();
         //Alumno santiago=new Alumno(1002, "Santiago", "Cometto", LocalDate.of(1999, 12, 15), true);
-        //AlumnoData ad=new AlumnoData(conexion);
+        AlumnoData ad=new AlumnoData(conexion);
 
         //ad.guardarAlumno(santiago);
         //Alumno guillermo=new Alumno(1003, "Guillermo", "Visco", LocalDate.of(1976, 9, 1), true);
@@ -41,11 +42,8 @@ public class Principal {
         //Alumno ramiro=ad.buscarAlumno(4);
         //ramiro.setNombre("Ramiro");
         //ad.actualizarAlumno(ramiro);
-        /*
-         AlumnoData ad=new AlumnoData(conexion);
-         
-         MateriaData md=new MateriaData(conexion);
-         */
+        
+     
         CursadaData cd = new CursadaData(conexion);
         /*
          Alumno santiago = ad.buscarAlumno(1);
@@ -64,19 +62,13 @@ public class Principal {
         }
 
         //cd.borrarInscripcion(2, 1);
-        List<Materia> listaa = cd.obtenerMateriasNoCursadas(1);
-
-        for (Materia c : listaa) {
-            System.out.println(c.getNombreMateria());
-        }
-
-        List <Alumno> listaaa=cd.obtenerAlumnosPorMateria(4);
+      
         
-        for (Alumno a: listaaa){
-            System.out.println(a.getLegajo());
-        }
+        System.out.println(ad.listarTodosLosAlumnos());
         
-        cd.actualizarNota(1, 1, 10);
-
+        cd.actualizarNota(1, 4, (float) 3.5);
+        
+        
+        
     }
 }

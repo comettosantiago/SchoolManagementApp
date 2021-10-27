@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,11 +62,11 @@ public class CursadaData {
                 i.setIdCursada(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Inscripcion agregada con exito");
             }
+
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al realizar inscripcion" + ex);
         }
-
     }
 
     public void borrarInscripcion(int idMateria, int idAlumno) {
@@ -84,7 +86,7 @@ public class CursadaData {
 
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR en Base de Datos"+ex);
+            JOptionPane.showMessageDialog(null, "ERROR en Base de Datos" + ex);
         }
     }
 
@@ -113,7 +115,7 @@ public class CursadaData {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones"+ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones" + ex);
         }
         return listaCursadas;
     }
@@ -157,7 +159,8 @@ public class CursadaData {
         try {
             String query = "SELECT * \n"
                     + "FROM materia \n"
-                    + "WHERE idMateria NOT IN (SELECT materia.idMateria\n"
+                    + "WHERE materia.activo = true\n"
+                    + "AND idMateria NOT IN (SELECT materia.idMateria\n"
                     + "FROM materia, cursada\n"
                     + "WHERE materia.idMateria = cursada.idMateria\n"
                     + "AND cursada.activo = true\n"
@@ -181,7 +184,7 @@ public class CursadaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener Materias no Cursadas"+ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Materias no Cursadas" + ex);
         }
         return listaMaterias;
     }
@@ -192,7 +195,7 @@ public class CursadaData {
         try {
 
             String query = "SELECT cursada.idAlumno FROM cursada WHERE cursada.activo = true AND cursada.idMateria = ?";
-            
+
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.setInt(1, idMateria);
@@ -210,7 +213,7 @@ public class CursadaData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener Alumnos"+ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener Alumnos" + ex);
         }
 
         return listaAlumnos;
@@ -227,14 +230,14 @@ public class CursadaData {
             ps.setInt(3, idMateria);
             ps.setFloat(1, nota);
 
-             if (ps.executeUpdate() > 0) {
+            if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Nota actualizada exitosamente");
             } else {
                 JOptionPane.showMessageDialog(null, "No se puede actualizar la Nota");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar la Nota"+ex);
+            JOptionPane.showMessageDialog(null, "Error al actualizar la Nota" + ex);
         }
     }
     //--------------------------------------------

@@ -13,17 +13,15 @@ import Models.Alumno;
 import Models.Cursada;
 import Models.Materia;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
 
 /**
  *
  * @author Isaias
  */
 public class Calificaciones extends javax.swing.JInternalFrame {
-    
-  
+
     /**
      * Creates new form calificaiones
      */
@@ -31,58 +29,59 @@ public class Calificaciones extends javax.swing.JInternalFrame {
     private ArrayList<Cursada> listaCursada;
     private ArrayList<Materia> listaMateria;
     private ArrayList<Alumno> listaAlumno;
-    
+
+    Conexion con = new Conexion();
+    AlumnoData ad = new AlumnoData(con);
+    MateriaData md = new MateriaData(con);
+    CursadaData cd = new CursadaData(con);
+
     public Calificaciones() {
         initComponents();
-        Conexion con = new Conexion();
-        AlumnoData ad = new AlumnoData(con);
-        MateriaData md = new MateriaData(con);
-        CursadaData cd = new CursadaData(con);        
-        modelo =new DefaultTableModel();
-        listaCursada = (ArrayList)cd.obtenerInscripciones();
+        modelo = new DefaultTableModel();
+        listaCursada = (ArrayList) cd.obtenerInscripciones();
         listaMateria = (ArrayList) md.listarTodasLasMaterias();
-        listaAlumno =(ArrayList)ad.listarTodosLosAlumnos();
+        listaAlumno = (ArrayList) ad.listarTodosLosAlumnos();
         cargarAlumnos();
         cabezeraDeTabla();
         cargarDatosEnLaTabla();
     }
-    
-     public void cargarAlumnos(){
-        for(Alumno a: listaAlumno){
+
+    public void cargarAlumnos() {
+        for (Alumno a : listaAlumno) {
             jComboAlumno.addItem(a);
         }
     }
-     
-    public void cabezeraDeTabla(){
+
+    public void cabezeraDeTabla() {
         ArrayList<Object> columna = new ArrayList<Object>();
-        columna.add("ID");
-        columna.add("Nombre");
-        columna.add("Apellido");
+        columna.add("ID Materia");
         columna.add("Materia");
         columna.add("Año");
         columna.add("Nota");
-        for (Object it:columna){
+        for (Object it : columna) {
             modelo.addColumn(it);
         }
         jTableCalificaciones.setModel(modelo);
-                
+
     }
-     public void borrarFilasTabla(){
-         int a= modelo.getRowCount()-1;
-         for(int i=a;i>=0;i--){
-             modelo.removeRow(i);
-         }
-     }
-      public void cargarDatosEnLaTabla(){
-         borrarFilasTabla();
-         
-         Alumno alumno =(Alumno) jComboAlumno.getSelectedItem();
-         for (Cursada m:listaCursada){
-             if(m.getAlumno().getIdAlumno()==alumno.getIdAlumno()){
-                 modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(),m.getAlumno().getNombre(),m.getAlumno().getApellido(),m.getMateria().getNombreMateria(),m.getMateria().getAnio(),m.getNota()});
-             }
-         }
-     }
+
+    public void borrarFilasTabla() {
+        int a = modelo.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    public void cargarDatosEnLaTabla() {
+        borrarFilasTabla();
+
+        Alumno alumno = (Alumno) jComboAlumno.getSelectedItem();
+        for (Cursada m : listaCursada) {
+            if (m.getAlumno().getIdAlumno() == alumno.getIdAlumno()) {
+                modelo.addRow(new Object[]{m.getMateria().getIdMateria(), m.getMateria().getNombreMateria(), m.getMateria().getAnio(), m.getNota()});
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,6 +100,10 @@ public class Calificaciones extends javax.swing.JInternalFrame {
         jButtonGuardar = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jTextNota = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -124,6 +127,11 @@ public class Calificaciones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableCalificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCalificacionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCalificaciones);
 
         jComboAlumno.setToolTipText("Seleccionar Alumno.");
@@ -143,6 +151,31 @@ public class Calificaciones extends javax.swing.JInternalFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
+        jTextNota.setToolTipText("Ingrese la nota luego de seleccionar una materia");
+        jTextNota.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextNotaFocusLost(evt);
+            }
+        });
+        jTextNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextNotaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Nota:");
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Seleccione una materia para cambiar la nota");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,12 +185,6 @@ public class Calificaciones extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSalir)
-                .addGap(47, 47, 47))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
@@ -174,6 +201,28 @@ public class Calificaciones extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonSalir)
+                .addGap(30, 30, 30))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3)
+                        .addGap(86, 86, 86))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addGap(44, 44, 44)))
+                .addComponent(jTextNota, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,13 +235,21 @@ public class Calificaciones extends javax.swing.JInternalFrame {
                     .addComponent(jComboAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextNota, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
+                .addGap(18, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonSalir))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonGuardar))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -205,8 +262,40 @@ public class Calificaciones extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
+        int filaElegida = jTableCalificaciones.getSelectedRow();
+        Alumno a = (Alumno) jComboAlumno.getSelectedItem();
+        int idMateria =  (Integer) jTableCalificaciones.getValueAt(filaElegida, 0);
         
+        float nuevaNota = Float.parseFloat(jTextNota.getText());
+        
+        cd.actualizarNota(a.getIdAlumno(), (int) idMateria, (float) nuevaNota);
+
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jTableCalificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCalificacionesMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTableCalificacionesMouseClicked
+
+    private void jTextNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextNotaActionPerformed
+
+    private void jTextNotaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextNotaFocusLost
+        // TODO add your handling code here:
+        try{
+        float nota=Float.parseFloat(jTextNota.getText());
+        }catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Usted no ingreso un numero.");
+            jTextNota.requestFocus();
+        }
+
+    }//GEN-LAST:event_jTextNotaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,8 +304,12 @@ public class Calificaciones extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Alumno> jComboAlumno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableCalificaciones;
+    private javax.swing.JTextField jTextNota;
     // End of variables declaration//GEN-END:variables
 }

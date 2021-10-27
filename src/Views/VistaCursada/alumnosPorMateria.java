@@ -74,6 +74,7 @@ public class alumnosPorMateria extends javax.swing.JInternalFrame {
         borrarFilasTabla();
 
         Materia mat = (Materia) jComboMateria.getSelectedItem();
+        
         for (Cursada c : listaCursada) {
             if (c.getMateria().getIdMateria() == mat.getIdMateria()) {
                 modelo.addRow(new Object[]{c.getAlumno().getIdAlumno(), c.getAlumno().getNombre(), c.getAlumno().getApellido(), c.getNota()});

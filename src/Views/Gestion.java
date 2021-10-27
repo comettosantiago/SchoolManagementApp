@@ -7,7 +7,7 @@ package Views;
 
 import Controls.AlumnoData;
 import Controls.Conexion;
-import Views.VistaAlumnos.editarAlumno;
+ import Views.VistaAlumnos.editarAlumno;
 import Views.VistaAlumnos.eliminarAlumno;
 import Views.VistaAlumnos.vistaAgregarAlumno;
 import Views.VistaCursada.Calificaciones;
@@ -117,6 +117,8 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem14.setText("jMenuItem14");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelPrincipal.setEnabled(false);
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
