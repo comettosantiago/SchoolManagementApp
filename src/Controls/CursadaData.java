@@ -126,7 +126,8 @@ public class CursadaData {
         try {
             String query = "SELECT materia.idMateria, nombreMateria, anio, materia.activo\n"
                     + "FROM materia, cursada\n"
-                    + "WHERE materia.idMateria = cursada.idMateria\n"
+                    + "WHERE materia.activo = true\n"
+                    + "AND materia.idMateria = cursada.idMateria\n"
                     + "AND cursada.activo = true \n"
                     + "AND cursada.idAlumno = ?";
 
